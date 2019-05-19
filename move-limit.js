@@ -14,6 +14,22 @@ cc.Class({
     },
 
     properties: {
+        // 是否预览
+        preview: {
+            default: false,
+            //type: cc.Boolean,
+            displayName: 'preview',
+            tooltip: '预览开关，你可以通过置false来取消预览',
+            visible: true
+        },
+        // 是否启用
+        isRun: {
+            default: true,
+            //type: cc.Boolean,
+            displayName: 'isRun',
+            tooltip: '限位开关，你可以通过置false来取消限位。比如飞机需要飞出屏幕时，应该关掉它。',
+            visible: true
+        },
         // 类型选择
         limitType: {
             default: LimitType.Number,
@@ -39,21 +55,25 @@ cc.Class({
         limitNode: {
             default: null,
             type: cc.Node,
-            tooltip: '根据该节点边界进行限位，推荐同级节点或其父节点位置相同',
+            tooltip: '根据该节点边界进行限位，同级节点或其父节点位置相同',
             visible: true
         }
     },
 
     start () {
+        // 自行决定是否打印
         if (this.limitType === LimitType.Number) {
-            cc.log('数值限位');
+            // cc.log('数值限位');
         } else if (this.limitType === LimitType.Node) {
-            cc.log('节点限位');
+            // cc.log('节点限位');
         }
     },
 
     update (dt) {
-        if (CC_EDITOR) {
+        if (CC_EDITOR && !this.preview) {
+            return;
+        }
+        if (!this.isRun) {
             return;
         }
         if (this.limitType === LimitType.Node && !this.limitNode) {
