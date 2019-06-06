@@ -13,22 +13,33 @@ cc.Class({
         // 一开始开启触摸
         openOnLoad: {
             default: true,
-            displayName: 'openOnLoad',
-            tooltip: '触摸开关，你可以通过置false来禁止一开始就打开触摸监听。',
+            displayName: '在onLoad中开启',
+            tooltip: '你可以通过置false来禁止一开始就打开触摸监听。你可以在需要时调用openTouch方法。',
             visible: true
         },
         // 类型选择
         moveType: {
             default: MoveType.Pos,
             type: MoveType,
-            displayName: 'MoveType',
+            displayName: '类型选择',
             tooltip: '指定为直接位置模式或拖动模式。注意：同时只能有一种模式生效。',
             visible: true
         },
+
+        deltaK: {
+            default: 1,
+            displayName: '拖动系数',
+            tooltip: '1为正常拖动系数，当你采用2时，拖动速度为2倍。',
+            visible: function () {
+                return this.moveType === MoveType.Delta;
+            }
+        },
+
         // 指定移动节点
         moveNode: {
             default: null,
             type: cc.Node,
+            displayName: '被控节点',
             tooltip: '指定移动节点',
             visible: true
         }
@@ -65,8 +76,8 @@ cc.Class({
             this.moveNode.y = pos.y;
         } else if (this.moveType === MoveType.Delta) {
             let delta = event.getDelta();
-            this.moveNode.x += delta.x;
-            this.moveNode.y += delta.y;
+            this.moveNode.x += this.deltaK * delta.x;
+            this.moveNode.y += this.deltaK * delta.y;
         }
     }
 

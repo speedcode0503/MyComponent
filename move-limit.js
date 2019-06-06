@@ -18,7 +18,7 @@ cc.Class({
         preview: {
             default: false,
             //type: cc.Boolean,
-            displayName: 'preview',
+            displayName: '启用预览',
             tooltip: '预览开关，你可以通过置false来取消预览',
             visible: true
         },
@@ -26,7 +26,7 @@ cc.Class({
         isRun: {
             default: true,
             //type: cc.Boolean,
-            displayName: 'isRun',
+            displayName: '启用开关',
             tooltip: '限位开关，你可以通过置false来取消限位。比如飞机需要飞出屏幕时，应该关掉它。',
             visible: true
         },
@@ -34,7 +34,7 @@ cc.Class({
         limitType: {
             default: LimitType.Number,
             type: LimitType,
-            displayName: 'LimitType',
+            displayName: '类型选择',
             tooltip: '指定为数值模式或节点模式。注意：同时只能有一种模式生效。',
             visible: true
         },
@@ -42,21 +42,28 @@ cc.Class({
             default: cc.v2(-100, -100),
             displayName: 'minX minY',
             tooltip: 'X轴Y轴最小值',
-            visible: true
+            visible: function () {
+                return this.limitType === LimitType.Number;
+            }
         },
         maxXY: {
             default: cc.v2(100, 100),
             displayName: 'maxX maxY',
             tooltip: 'X轴Y轴最大值',
-            visible: true
+            visible: function () {
+                return this.limitType === LimitType.Number;
+            }
         },
 
         // 指定限制节点
         limitNode: {
             default: null,
             type: cc.Node,
+            displayName: '被限节点',
             tooltip: '根据该节点边界进行限位，同级节点或其父节点位置相同',
-            visible: true
+            visible: function () {
+                return this.limitType === LimitType.Node;
+            }
         }
     },
 
