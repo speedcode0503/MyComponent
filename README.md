@@ -1,5 +1,5 @@
 # MyComponent
-## CocosCreator2.0.x编写
+## CocosCreator2.x编写
  分享一些自己写的 CocosCreator 小脚本插件。可直接挂载使用。觉得不错给个星吧 O(∩_∩)O 。
 ## 目录
 - move-limit 移动限位，两种模式固定节点移动区域，挂载在节点上。
