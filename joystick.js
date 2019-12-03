@@ -51,8 +51,9 @@ cc.Class({
         this.clampPos(pos);
         this.midNode.setPosition(pos.x, pos.y);
         let angle = this.covertToAngle(pos);
-        // 触发回调，参数类型 Vec2，number
-        this.joyCallBack.emit([pos, angle]);
+        console.log(this.joyCallBack);
+        // 触发回调
+        this.joyCallBack[0].emit([pos, angle]);
     },
 
     onTouchMove (e) {
@@ -60,13 +61,13 @@ cc.Class({
         this.clampPos(pos);
         this.midNode.setPosition(pos.x, pos.y);
         let angle = this.covertToAngle(pos);
-        // 触发回调，参数类型 Vec2，number
-        this.joyCallBack.emit([pos, angle]);
+        // 触发回调
+        this.joyCallBack[0].emit([pos, angle]);
     },
 
     onTouchEnd (e) {
         this.goBackMid();
-        this.joyCallBack.emit([cc.v2(0, 0)]);
+        this.joyCallBack[0].emit([cc.v2(0, 0)]);
     },
 
     /** 根据半径限制位置 */
