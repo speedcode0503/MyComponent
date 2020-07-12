@@ -21,7 +21,7 @@ cc.Class({
         },
         /** 摇杆移动回调 */
         joyCallBack:  {
-            default: [],
+            default: null,
             type: cc.Component.EventHandler,
             displayName: '摇杆移动回调',
             tooltip: '触发touchmove后分发数据'
@@ -53,7 +53,7 @@ cc.Class({
         let angle = this.covertToAngle(pos);
         console.log(this.joyCallBack);
         // 触发回调
-        this.joyCallBack[0].emit([pos, angle]);
+        this.joyCallBack.emit([pos, angle]);
     },
 
     onTouchMove (e) {
@@ -62,12 +62,12 @@ cc.Class({
         this.midNode.setPosition(pos.x, pos.y);
         let angle = this.covertToAngle(pos);
         // 触发回调
-        this.joyCallBack[0].emit([pos, angle]);
+        this.joyCallBack.emit([pos, angle]);
     },
 
     onTouchEnd (e) {
         this.goBackMid();
-        this.joyCallBack[0].emit([cc.v2(0, 0)]);
+        this.joyCallBack.emit([cc.v2(0, 0)]);
     },
 
     /** 根据半径限制位置 */
